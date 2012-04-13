@@ -72,7 +72,7 @@ AX_PTHREAD([
 	]) # XXX Should we error on no threads?
 
 # Add explicit linking flags
-GUI_LIBS="$GUI_LIBS -lm -lz -lrt"
+GUI_LIBS="$GUI_LIBS -lm -lz"
 
 # Checks for header files.
 AC_CHECK_HEADERS([libintl.h locale.h netdb.h stdlib.h string.h sys/socket.h sys/time.h unistd.h fcntl.h])
