@@ -294,8 +294,8 @@ gboolean latex_run_makeindex (GuEditor* ec) {
         Tuple2 res = utils_popen_r (command, C_TMPDIR);
         retcode = (glong)res.first;
         g_free (command);
+        if (retcode == 0) return TRUE;
     }
-    if (retcode == 0) return TRUE;
     return FALSE;
 }
 
