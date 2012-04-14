@@ -761,7 +761,7 @@ G_MODULE_EXPORT
 void on_styleschemes_treeview_cursor_changed (GtkTreeView* treeview, void* user) {
     gchar* id = NULL;
     gchar* name = NULL;
-    GList* tab = gummi->tabmanager->tabs;
+    GList* tab = NULL;
     GtkTreeIter iter;
     GtkTreeModel* model = GTK_TREE_MODEL (gtk_tree_view_get_model (treeview));
     GtkTreeSelection* selection = gtk_tree_view_get_selection (treeview);
