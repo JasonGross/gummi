@@ -2744,6 +2744,7 @@ int _synctex_open(const char * output, const char * build_directory, char ** syn
 		const char *lpc;
 		size_t size;
 		synctex_bool_t is_absolute;
+                int ret;
 		build_output = NULL;
 		lpc = _synctex_last_path_component(output);
 		size = strlen(build_directory)+strlen(lpc)+2;   /*  One for the '/' and one for the '\0'.   */
@@ -2756,6 +2757,7 @@ int _synctex_open(const char * output, const char * build_directory, char ** syn
 				build_output[0] = '\0';
 			} else {
 				if (build_output != strcpy(build_output,output)) {
+					free(build_output);
 					return -4;
 				}
 				build_output[lpc-output]='\0';
@@ -2764,14 +2766,17 @@ int _synctex_open(const char * output, const char * build_directory, char ** syn
 				/*	Append a path separator if necessary. */
 				if (!SYNCTEX_IS_PATH_SEPARATOR(build_output[strlen(build_directory)-1])) {
 					if (build_output != strcat(build_output,"/")) {
+                                                free(build_output);
 						return -2;
 					}
 				}
 				/*	Append the last path component of the output. */
 				if (build_output != strcat(build_output,lpc)) {
+                                        free(build_output);
 					return -3;
 				}
-				return __synctex_open(build_output,synctex_name_ref,file_ref,add_quotes,io_mode_ref);
+				ret = __synctex_open(build_output,synctex_name_ref,file_ref,add_quotes,io_mode_ref);
+                                free(build_output);
 			}
 		}
 		return -1;
