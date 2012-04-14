@@ -114,10 +114,11 @@ void config_init (const gchar* filename) {
 
     config_load ();
     config_version = config_get_value ("config_version");
+    if (config_version == NULL) config_version = "";
     
     
     /* Migration from earlier version to newer version (first run only) */
-    if (utils_subinstr("0.5", (gchar*)config_version, FALSE)) {
+    if (utils_subinstr("0.5", config_version, FALSE)) {
         const gchar* text = config_get_value ("welcome");
         gchar* templname = g_strdup_printf("oldwelcome%s", config_version);
         gchar* filename = g_build_filename (g_get_user_config_dir (),
@@ -170,7 +171,7 @@ void config_set_default (void) {
  *      if (config_get_value("parameter_name")) {...}
  */
 const gchar* config_get_value (const gchar* term) {
-    gchar* ret  = NULL;
+    const gchar* ret;
     slist* index = slist_find (config_head, term, FALSE, TRUE);
 
     ret = index->second;
