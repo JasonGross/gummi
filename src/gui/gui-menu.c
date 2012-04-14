@@ -530,7 +530,7 @@ void on_menu_docstat_activate (GtkWidget *widget, void *user) {
 
 cleanup:
     for (i = 0; i < TEXCOUNT_OUTPUT_LINES; ++i) {
-        g_regex_unref (regexs[i]);
+        if (regexs[i]) g_regex_unref (regexs[i]);
         g_free (res[i]);
     }
     g_free (cmd);
