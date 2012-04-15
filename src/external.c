@@ -155,7 +155,9 @@ static gdouble get_texlive_version (void) {
 static gchar* version_rubber (const gchar* output) {
     /* format: Rubber version: 1.1 */
     gchar** version = g_strsplit (output, " ", BUFSIZ);
-    return version[2];
+    gchar* result = g_strdup (version[2]);
+    g_strfreev (version);
+    return result;
 }
 
 static gchar* version_latexmk (const gchar* output) {
@@ -163,5 +165,7 @@ static gchar* version_latexmk (const gchar* output) {
        format: Latexmk, John Collins, 24 March 2011. Version 4.23a */
 
     gchar** version = g_strsplit (output, " ", BUFSIZ);
-    return version[7];
+    gchar* result = g_strdup (version[7]);
+    g_strfreev (version);
+    return result;
 }
