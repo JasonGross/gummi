@@ -80,27 +80,31 @@ gdouble external_version2 (ExternalProg program) {
 }
 
 gchar* external_version (const gchar* program) {
-    const gchar* getversion = g_strdup_printf("%s --version", program); 
+    gchar* getversion = g_strdup_printf("%s --version", program);
     Tuple2 cmdgetv = utils_popen_r (getversion, NULL);
+    g_free (getversion);
     gchar* output = (gchar*)cmdgetv.second;
+    gchar* result;
 
-    gchar* result = g_strdup ("Unknown, please report a bug");
-    
-    if (output == NULL) return result;
-    
+    if (output == NULL) return g_strdup ("Unknown, please report a bug");
+
     gchar** lines = g_strsplit(output, "\n", BUFSIZ);
-    result = lines[0];
+    g_free (output);
     
     /* pdfTeX 3.1415926-1.40.10 (TeX Live 2009)
        pdfTeX 3.1415926-1.40.11-2.2 (TeX Live 2010)
        pdfTeX 3.1415926-2.3-1.40.12 (TeX Live 2011)
     */
     if (STR_EQU (program, C_RUBBER)) {
-        result = version_rubber (result);
+        result = version_rubber (lines[0]);
     }
     else if (STR_EQU (program, C_LATEXMK)) {
         result = version_latexmk (lines[1]);
     }
+    else {
+        result = g_strdup (lines[0]);
+    }
+    g_strfreev (lines);
     
     return result;
 }
