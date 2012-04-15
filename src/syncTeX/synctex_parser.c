@@ -2527,6 +2527,10 @@ next_sheet:
 	++SYNCTEX_CUR;
 	/*  Create a new sheet node */
 	sheet = _synctex_new_sheet(scanner);
+	if (!sheet) {
+		_synctex_error("Failure to malloc a sheet");
+		return SYNCTEX_STATUS_ERROR;
+	}
 	status = _synctex_decode_int(scanner,&(SYNCTEX_PAGE(sheet)));
 	if (status<SYNCTEX_STATUS_OK) {
 		_synctex_error("Missing sheet number.");
