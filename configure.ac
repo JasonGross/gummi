@@ -64,8 +64,15 @@ if test "$spellcheck" = yes; then
     GUI_LIBS="$GUI_LIBS $gtkspell_LIBS"
 fi
 
+m4_include(m4/ax_pthread.m4)
+AX_PTHREAD([
+	 GUI_CFLAGS="$GUI_CFLAGS $PTHREAD_CFLAGS"
+	 GUI_LIBS="$GUI_LIBS $PTHREAD_LIBS"
+         CC="$PTHREAD_CC"
+	]) # XXX Should we error on no threads?
+
 # Add explicit linking flags
-GUI_LIBS="$GUI_LIBS -pthread -lm -lz -lrt"
+GUI_LIBS="$GUI_LIBS -lm -lz -lrt"
 
 # Checks for header files.
 AC_CHECK_HEADERS([libintl.h locale.h netdb.h stdlib.h string.h sys/socket.h sys/time.h unistd.h fcntl.h])
