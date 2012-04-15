@@ -57,6 +57,7 @@ gboolean external_hasflag (const gchar* program, const gchar* flag) {
 static gchar* get_version_output (const gchar* command, int linenr) {
     const gchar* getversion = g_strdup_printf("%s --version", command); 
     Tuple2 cmdgetv = utils_popen_r (getversion, NULL);
+    g_free (getversion);
     gchar* output = (gchar*)cmdgetv.second;
     gchar* result = g_strdup ("Unknown");
     
@@ -67,7 +68,9 @@ static gchar* get_version_output (const gchar* command, int linenr) {
     }
     
     gchar** splitted = g_strsplit(output, "\n", BUFSIZ);
-    result = splitted[linenr];
+    g_free (output);
+    result = g_strdup (splitted[linenr]);
+    g_strfreev (splitted);
     return result;
 }
 
