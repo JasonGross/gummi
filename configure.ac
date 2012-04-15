@@ -12,6 +12,7 @@ AC_SUBST(GETTEXT_PACKAGE)
 # ls po/*.po | sort | sed 's/po\///g;s/.po//g'| sed ':a;N;s/\n/ /g;ta'
 ALL_LINGUAS="ar ca cs da de el es fr it nl pl pt pt_BR ro ru sv zh_CN zh_TW"
 
+AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_SRCDIR([src/environment.h])
 AC_CONFIG_HEADERS([config.h])
 AH_VERBATIM([USE_GTKSPELL], [#undef USE_GTKSPELL])
@@ -64,8 +65,14 @@ if test "$spellcheck" = yes; then
     GUI_LIBS="$GUI_LIBS $gtkspell_LIBS"
 fi
 
+AX_PTHREAD([
+	 GUI_CFLAGS="$GUI_CFLAGS $PTHREAD_CFLAGS"
+	 GUI_LIBS="$GUI_LIBS $PTHREAD_LIBS"
+         CC="$PTHREAD_CC"
+	]) # XXX Should we error on no threads?
+
 # Add explicit linking flags
-GUI_LIBS="$GUI_LIBS -pthread -lm -lz -lrt"
+GUI_LIBS="$GUI_LIBS -lm -lz -lrt"
 
 # Checks for header files.
 AC_CHECK_HEADERS([libintl.h locale.h netdb.h stdlib.h string.h sys/socket.h sys/time.h unistd.h fcntl.h])
