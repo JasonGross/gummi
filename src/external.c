@@ -123,25 +123,32 @@ static gdouble get_texlive_version (void) {
      
     if ((!utils_subinstr ("TeX Live", output, FALSE)) &&
         (!utils_subinstr ("Web2C", output, FALSE))) {
+        g_free (output);
         return version;
     }
     
     gchar** splitted = g_strsplit (output, " ", BUFSIZ);
     guint size = g_strv_length (splitted);
+    g_free (output);
     
     gchar* segment = g_strdup (splitted[size-1]);
-    gchar* resultstr = "";
+    g_strfreev (splitted);
+    gchar* resultstr = g_strdup("");
     
     // make sure to only allow numeric characters in the result:
     int n;
     for (n=0;n<g_utf8_strlen(segment, -1);n++) {    
         if (g_ascii_isdigit (segment[n])) {
            gchar* addchar = g_strdup_printf("%c", segment[n]);
+           gchar* prevresultstr = resultstr;
            resultstr = g_strconcat (resultstr, addchar, NULL);
+           g_free (addchar);
+           g_free (prevresultstr);
         }
     }
     
     version = g_ascii_strtod (resultstr, NULL);
+    g_free (resultstr);
     return version;
 }
 
