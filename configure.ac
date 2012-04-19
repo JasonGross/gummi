@@ -4,6 +4,7 @@
 AC_PREREQ(2.65)
 AC_INIT([Gummi], [svn800], [alexvandermey@gmail.com], [gummi], [http://gummi.midnightcoding.org/])
 AM_INIT_AUTOMAKE([foreign -Wall -Werror])
+LT_INIT
 
 GETTEXT_PACKAGE=gummi
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [The gettext domain])
@@ -20,6 +21,7 @@ AH_VERBATIM([USE_GTKSPELL], [#undef USE_GTKSPELL])
 # Checks for programs.
 AC_PROG_CC
 AC_PROG_CC_C_O
+AC_PROG_CXX
 IT_PROG_INTLTOOL
 AM_PROG_CC_C_O
 
