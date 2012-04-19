@@ -75,16 +75,20 @@ AX_PTHREAD([
 GUI_LIBS="$GUI_LIBS -lm -lz"
 
 # Checks for header files.
-AC_CHECK_HEADERS([libintl.h locale.h netdb.h stdlib.h string.h sys/socket.h sys/time.h unistd.h fcntl.h])
+AC_CHECK_HEADERS([libintl.h locale.h limits.h netdb.h stdlib.h string.h sys/socket.h sys/time.h unistd.h fcntl.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_HEADER_STDBOOL
 AC_C_CONST
 AC_C_INLINE
 AC_TYPE_SIZE_T
+AC_TYPE_PID_T
 
 # Checks for library functions.
-AC_CHECK_FUNCS([gethostbyname memset setlocale socket strstr])
+AC_CHECK_FUNCS([gethostbyname memmove memset setlocale socket strchr strrchr strstr strtol])
+AC_FUNC_MALLOC
+AC_FUNC_REALLOC
+AC_FUNC_STRTOD
 
 AC_SUBST(GUI_LIBS)
 AC_SUBST(GUI_CFLAGS)
