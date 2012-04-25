@@ -160,7 +160,7 @@ gchar* utils_path_to_relative (const gchar* root, const gchar* target);
 gboolean utils_subinstr (const gchar* substr, const gchar* target,
         gboolean case_sens);
 
-gchar* utils_get_tmp_tmp_dir (void); /* TODO: remove when we can */
+const gchar* utils_get_tmp_tmp_dir (void); /* TODO: remove when we can */
 
 
 gboolean utils_glist_is_member (GList *list, gchar* item);
