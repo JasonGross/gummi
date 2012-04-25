@@ -245,6 +245,8 @@ Tuple2 utils_popen_r (const gchar* cmd, const gchar* chdir) {
         /* Not reached */
     }
 
+    g_strfreev (args);
+
     while ((len = read (pout, buf, BUFSIZ)) > 0) {
         buf[len - (len == BUFSIZ)] = 0;
         rot = g_strdup (ret);
