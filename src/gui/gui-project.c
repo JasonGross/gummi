@@ -89,6 +89,7 @@ int projectgui_list_projfiles (gchar* active_proj) {
     }
     
     files = project_list_files (content);
+    g_free (content);
     amount = g_list_length (files);
     
     for (i=0; i < amount; i++) {
@@ -105,7 +106,12 @@ int projectgui_list_projfiles (gchar* active_proj) {
                 }
 
         gtk_list_store_set (store, &iter, 0, pic, 1, name, 2, path, 3, tmp, -1);
+
+        g_free (tmp);
+        g_free (name);
+        g_free (path);
     }
+    g_list_free (files);
     return amount;
 }
 
