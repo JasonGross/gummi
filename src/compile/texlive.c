@@ -98,7 +98,7 @@ gboolean xelatex_detected (void) {
     return xel_detected;
 }
 
-gchar* texlive_get_command (const gchar* method, gchar* workfile, gchar* basename) {
+gchar* texlive_get_command (const gchar* method, const gchar* workfile, const gchar* basename) {
     
     const gchar* outdir = g_strdup_printf("-output-directory=\"%s\"", C_TMPDIR);
     
