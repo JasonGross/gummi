@@ -182,8 +182,9 @@ void on_projfile_add_clicked (GtkWidget* widget, void* user) {
     if (selected) {
         if (project_add_document (gummi->project->projfile, selected)) {
             int amount = projectgui_list_projfiles (gummi->project->projfile);
-            gtk_label_set_text (gui->projectgui->proj_nroffiles, 
-                                g_strdup_printf("%d", amount));
+            gchar* nroffiles = g_strdup_printf ("%d", amount);
+            gtk_label_set_text (gui->projectgui->proj_nroffiles, nroffiles);
+            g_free (nroffiles);
             gui_open_file (selected);
         }
         else {
