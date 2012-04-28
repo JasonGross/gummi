@@ -902,8 +902,9 @@ static void load_document(GuPreviewGui* pc, gboolean update) {
     g_free(pc->pages);
 
     pc->n_pages = poppler_document_get_n_pages (pc->doc);
-    gtk_label_set_text (GTK_LABEL (pc->page_label),
-            g_strdup_printf (_("of %d"), pc->n_pages));
+    gchar* buff = g_strdup_printf (_("of %d"), pc->n_pages);
+    gtk_label_set_text (GTK_LABEL (pc->page_label), buff);
+    g_free (buff);
 
     pc->pages = g_new0(GuPreviewPage, pc->n_pages);
 
