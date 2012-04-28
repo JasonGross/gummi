@@ -62,17 +62,22 @@ gboolean latexmk_detected (void) {
 gchar* latexmk_get_command (const gchar* method, const gchar* workfile, const gchar* basename) {
     gchar* outdir = g_strdup("");
     gchar* base;
+    gchar* dirname = g_path_get_dirname (workfile);
 
     /* reroute output files to our temp directory */
-    if (!STR_EQU (C_TMPDIR, g_path_get_dirname (workfile))) {
+    if (!STR_EQU (C_TMPDIR, dirname)) {
         base = g_path_get_basename (basename);
+        g_free (outdir);
         outdir = g_strdup_printf ("-jobname=\"%s/%s\"", C_TMPDIR, base);
+        g_free (base);
     }
     
-    const gchar* flags = latexmk_get_flags (method);
+    gchar* flags = latexmk_get_flags (method);
     gchar* lmkcmd;
     
     lmkcmd = g_strdup_printf("latexmk %s %s \"%s\"", flags, outdir, workfile);
+    g_free (outdir);
+    g_free (flags);
     return lmkcmd;
 }
 
