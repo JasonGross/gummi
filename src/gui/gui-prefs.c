@@ -164,9 +164,9 @@ GuPrefsGui* prefsgui_init (GtkWindow* mainwindow) {
                 gtk_list_store_append (p->list_languages, &iter);
                 gtk_list_store_set (p->list_languages, &iter, 0, elems[0], -1);
             }
+            g_strfreev(elems);
         }
-    g_strfreev(output);
-    g_strfreev(elems);
+        g_strfreev(output);
     }
 
     gtk_combo_box_set_active (p->combo_languages, 0);
