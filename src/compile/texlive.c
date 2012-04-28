@@ -100,7 +100,7 @@ gboolean xelatex_detected (void) {
 
 gchar* texlive_get_command (const gchar* method, const gchar* workfile, const gchar* basename) {
     
-    const gchar* outdir = g_strdup_printf("-output-directory=\"%s\"", C_TMPDIR);
+    gchar *outdir = g_strdup_printf("-output-directory=\"%s\"", C_TMPDIR);
     
     
     gchar *typesetter = NULL;
@@ -111,8 +111,10 @@ gchar* texlive_get_command (const gchar* method, const gchar* workfile, const gc
     
     gchar *flags = texlive_get_flags("texpdf");
     
-    gchar *dviname = g_strdup_printf("%s.dvi", g_path_get_basename (basename));
-    gchar *psname = g_strdup_printf("%s.ps", g_path_get_basename (basename));
+    gchar *base = g_path_get_basename (basename);
+    gchar *dviname = g_strdup_printf("%s.dvi", base);
+    gchar *psname = g_strdup_printf("%s.ps", base);
+    g_free(base);
     
     #ifdef WIN32
     gchar *script = g_build_filename (LIBDIR, "latex_dvi.cmd", NULL);
@@ -139,6 +141,8 @@ gchar* texlive_get_command (const gchar* method, const gchar* workfile, const gc
     g_free(script);
     g_free(dviname);
     g_free(psname);
+    g_free(flags);
+    g_free(outdir);
 
     return texcmd;
 }
