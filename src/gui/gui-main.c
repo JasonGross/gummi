@@ -361,6 +361,7 @@ void on_recovery_infobar_response (GtkInfoBar* bar, gint res, gpointer filename)
     else { // NO
         tabmanager_set_content (A_LOAD, filename, NULL);
     }
+    g_free (prev_workfile);
     gui_recovery_mode_disable (bar);
 }
 
