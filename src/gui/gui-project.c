@@ -133,19 +133,23 @@ GdkPixbuf* projectgui_get_status_pixbuf (int status) {
 }
 
 void projectgui_enable (GuProject* pr, GuProjectGui* prgui) {
-    const gchar* projbasename = g_path_get_basename (pr->projfile);
-    const gchar* projrootpath = g_path_get_dirname (pr->rootfile);
+    gchar* projbasename = g_path_get_basename (pr->projfile);
+    gchar* projrootpath = g_path_get_dirname (pr->rootfile);
+    gchar* nroffiles = g_strdup_printf ("%d", pr->nroffiles);
     
     gtk_label_set_text (prgui->proj_name, projbasename);
     gtk_label_set_text (prgui->proj_path, projrootpath);
-    gtk_label_set_text (prgui->proj_nroffiles, 
-                        g_strdup_printf("%d", pr->nroffiles));
+    gtk_label_set_text (prgui->proj_nroffiles, nroffiles);
     
     // for visible information when window is shrinked, see #439 -A
     gtk_widget_set_tooltip_text 
                         (GTK_WIDGET (prgui->proj_name), projbasename);
     gtk_widget_set_tooltip_text 
                         (GTK_WIDGET (prgui->proj_path), projrootpath);
+
+    g_free (projbasename);
+    g_free (projrootpath);
+    g_Free (nroffiles);
                         
     gtk_widget_set_sensitive (GTK_WIDGET (prgui->proj_addbutton), TRUE);
     gtk_widget_set_sensitive (GTK_WIDGET (prgui->proj_rembutton), TRUE);
