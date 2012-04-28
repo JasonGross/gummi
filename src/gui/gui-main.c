@@ -369,6 +369,7 @@ void gui_recovery_mode_enable (GuTabContext* tab, const gchar* filename) {
     gchar* prev_workfile = iofunctions_get_swapfile (filename);
 
     slog (L_WARNING, "Swap file `%s' found.\n", prev_workfile);
+    g_free (prev_workfile);
     gchar* msg = g_strdup_printf (_("Swap file exists for %s, "
 				"do you want to recover from it?"), filename);
     gtk_label_set_text (GTK_LABEL (tab->page->barlabel), msg);
