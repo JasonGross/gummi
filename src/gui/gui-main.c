@@ -254,8 +254,9 @@ gboolean w32popup_wait_event (void *builder) {
 		gtk_widget_set_sensitive (gui->w32button, TRUE);
 		return FALSE;
 	}
-	gtk_label_set_text (GTK_LABEL (gui->w32label), 
-						g_strdup_printf("%d", number));
+	gchar* strnumber = g_strdup_printf("%d", number);
+	gtk_label_set_text (GTK_LABEL (gui->w32label), strnumber);
+	g_free (strnumber);
 	return TRUE;
 }
 #endif
