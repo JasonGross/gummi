@@ -763,18 +763,18 @@ void on_combo_animated_scroll_changed (GtkWidget* widget, void* user) {
 G_MODULE_EXPORT
 void on_styleschemes_treeview_cursor_changed (GtkTreeView* treeview, void* user) {
     gchar* id = NULL;
-    gchar* name = NULL;
     GList* tab = NULL;
     GtkTreeIter iter;
     GtkTreeModel* model = GTK_TREE_MODEL (gtk_tree_view_get_model (treeview));
     GtkTreeSelection* selection = gtk_tree_view_get_selection (treeview);
 
     gtk_tree_selection_get_selected (selection, &model, &iter);
-    gtk_tree_model_get (model, &iter, 0, &name, 1, &id, -1);
+    gtk_tree_model_get (model, &iter, 1, &id, -1);
     tab = gummi->tabmanager->tabs;
     while (tab) {
         editor_set_style_scheme_by_id (GU_TAB_CONTEXT (tab->data)->editor, id);
         tab = g_list_next (tab);
     }
     config_set_value ("style_scheme", id);
+    g_free (id);
 }
