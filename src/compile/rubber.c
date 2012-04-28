@@ -59,7 +59,7 @@ gboolean rubber_detected (void) {
     return rub_detected;
 }
 
-gchar* rubber_get_command (const gchar* method, gchar* workfile) {
+gchar* rubber_get_command (const gchar* method, const gchar* workfile) {
     
     const gchar* outdir = g_strdup_printf ("--into=\"%s\"", C_TMPDIR);
     const gchar* flags = rubber_get_flags (method);
