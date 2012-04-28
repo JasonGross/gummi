@@ -36,7 +36,7 @@ void latexmk_init (void);
 gboolean latexmk_active (void);
 gboolean latexmk_detected (void);
 
-gchar* latexmk_get_command (const gchar* method, gchar* workfile, gchar* basename);
+gchar* latexmk_get_command (const gchar* method, const gchar* workfile, const gchar* basename);
 gchar* latexmk_get_flags (const gchar *method);
 
 #endif /* __GUMMI_COMPILE_LATEXMK_H__ */

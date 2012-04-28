@@ -59,7 +59,7 @@ gboolean latexmk_detected (void) {
     return lmk_detected;
 }
 
-gchar* latexmk_get_command (const gchar* method, gchar* workfile, gchar* basename) {
+gchar* latexmk_get_command (const gchar* method, const gchar* workfile, const gchar* basename) {
     gchar* outdir = g_strdup("");
     gchar* base;
 
