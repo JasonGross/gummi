@@ -330,6 +330,7 @@ void gui_set_filename_display (GuTabContext* tc, gboolean title, gboolean label)
     
     if (label) tabmanagergui_update_label (tc->page, filetext);
     if (title) gui_set_window_title (tc->editor->filename, filetext);
+    g_free (filetext);
 }
 
 void gui_set_window_title (const gchar* filename, const gchar* text) {
