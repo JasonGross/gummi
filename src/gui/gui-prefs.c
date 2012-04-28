@@ -374,12 +374,14 @@ static void set_tab_miscellaneous_settings (GuPrefsGui* prefs) {
     lang = config_get_value ("spell_language");
     valid = gtk_tree_model_get_iter_first (combo_lang, &iter);
     while (valid) {
-        const gchar* str_value;
+        gchar* str_value;
         gtk_tree_model_get (combo_lang, &iter, 0, &str_value, -1);
         if (STR_EQU (lang, str_value)) {
             gtk_combo_box_set_active (prefs->combo_languages, count);
+            g_free (str_value);
             break;
         }
+        g_free (str_value);
         ++count;
         valid = gtk_tree_model_iter_next (combo_lang, &iter);
     }    
