@@ -631,6 +631,7 @@ void on_button_biblio_detect_clicked (GtkWidget* widget, void* user) {
                     (GTK_WIDGET(gummi->biblio->list_filter), TRUE);
 
         number = biblio_parse_entries (gummi->biblio, text);
+        g_free (text);
         basename = g_path_get_basename (g_active_editor->bibfile);
         gtk_label_set_text (gummi->biblio->filenm_label, basename);
         str = g_strdup_printf ("%d", number);
