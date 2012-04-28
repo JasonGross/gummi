@@ -338,9 +338,10 @@ void gui_set_window_title (const gchar* filename, const gchar* text) {
     gchar* title;
 
     if (filename != NULL) {
-        dirname = g_strdup_printf("(%s)", g_path_get_dirname (filename));
-        title = g_strdup_printf ("%s %s - %s", text, dirname,
+        dirname = g_path_get_dirname (filename);
+        title = g_strdup_printf ("%s (%s) - %s", text, dirname,
                                                  PACKAGE_NAME);
+        g_free (dirname);
     }
     else {
         title = g_strdup_printf ("%s - %s", text, PACKAGE_NAME);
