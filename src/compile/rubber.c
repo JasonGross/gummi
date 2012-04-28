@@ -40,8 +40,10 @@ void rubber_init (void) {
     
     if (external_exists (C_RUBBER)) {
         // TODO: check if supported version
+        gchar* version = external_version (C_RUBBER);
         slog (L_INFO, "Typesetter detected: Rubber %s\n", 
-                       external_version (C_RUBBER));
+                       version);
+        g_free (version);
         rub_detected = TRUE;
     }
 }

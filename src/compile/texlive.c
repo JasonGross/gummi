@@ -44,6 +44,7 @@ gboolean xel_detected = FALSE;
 
 int texlive_init (void) {
     int texversion = 0;
+    gchar* version;
     
     if (external_exists (C_LATEX)) {
         texversion = external_version2 (EX_TEXLIVE);
@@ -51,14 +52,18 @@ int texlive_init (void) {
     }
     
     if (external_exists (C_PDFLATEX)) {
+        version = external_version (C_PDFLATEX);
         slog (L_INFO, "Typesetter detected: %s\n",
-              external_version (C_PDFLATEX));
+              version);
+        g_free (version);
         pdf_detected = TRUE;
     }
     
     if (external_exists (C_XELATEX)) {
+        version = external_version (C_XELATEX);
         slog (L_INFO, "Typesetter detected: %s\n",
-              external_version (C_XELATEX));
+              version);
+        g_free (version);
         xel_detected = TRUE;
     }
     return texversion;

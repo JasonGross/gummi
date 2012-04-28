@@ -40,8 +40,10 @@ void latexmk_init (void) {
     
     if (external_exists (C_LATEXMK)) {
         // TODO: check if supported version
+        gchar* version = external_version (C_LATEXMK);
         slog (L_INFO, "Typesetter detected: Latexmk %s\n", 
-                       external_version (C_LATEXMK));
+                       version);
+        g_free (version);
         lmk_detected = TRUE;
     }
 }
