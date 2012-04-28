@@ -730,6 +730,7 @@ void on_combo_language_changed (GtkWidget* widget, void* user) {
     gchar* selected = gtk_combo_box_get_active_text (GTK_COMBO_BOX (widget));
     GList* tab = gummi->tabmanager->tabs;
     config_set_value ("spell_language", selected);
+    g_free (selected);
 
     if (config_get_value ("spelling")) {
         while (tab) {
